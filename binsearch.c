@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
+#include <getopt.h>
 #include <math.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <sys/wait.h>
 #include <sys/un.h>
 #include <stdbool.h>
 #include <string.h>
@@ -11,30 +14,97 @@
 #include "const.h"
 #include "util.h"
 
-// TODO: implement
-int serial_binsearch() {
-    return 0;
+bool serial_binsearch(char *array, int pos) {	//serial binsearch
+	int len = strlen(array);
+	int first=0;
+	int last = len-1;
+	int middle =(first + last)/2;
+	while (first<=last){
+		if (middle< pos)
+			first = middle+1;
+		else if (middle==pos){
+			return true;
+			break;}
+		else{last = middle -1;}
+	middle=(first+last)/2;}
+	if (first>last)
+    		return false;
 }
 
-// TODO: implement
-int parallel_binsearch() {
-    return 0;
+int parallel_binsearch(char array, int pos, int first,int last) {//metodo recursivo
+	if (first < last)
+		return false;
+	else{
+		int middle =(first + last)/2;
+		if (pos==middle)
+			return true;
+		else if(pos<middle)
+			return parallel_binsearch(array,pos,first,middle-1);
+		else
+			return parallel_binsearch(array,pos,middle+1,last);
+		}
 }
 
 int main(int argc, char** argv) {
     /* TODO: move this time measurement to right before the execution of each binsearch algorithms
      * in your experiment code. It now stands here just for demonstrating time measurement. */
-    clock_t cbegin = clock();
+    clock_t cbegin = clock();//aun no hay que ponerlo, cuando termine de parsear y ejecutar tiempos.
 
     printf("[binsearch] Starting up...\n");
 
     /* Get the number of CPU cores available */
     printf("[binsearch] Number of cores available: '%ld'\n",
            sysconf(_SC_NPROCESSORS_ONLN));
+	int flag2=0;//dato t;
+	int flag4=0;//dato e
+	int flag6=0;//dato p
+	int c;
+	opterr=0;
+	
+	while((c=getopt(argc,argv,"T:E:P:")) !=-1 )
+	{
+		switch(c){
+			case 'T':
+				flag2= atoi(optarg);
+				break;
+			case 'E':
+				flag4= atoi(optarg);
+				break;
+			case 'P':
+				flag6=atoi(optarg);
+				break;
+			case '?':
+				if(optopt=='T'){
+					fprintf(stderr, "OPCION -%c requiere un argumento.\n",optopt}
+				if(optopt=='E'){
+					fprintf(stderr, "OPCION -%c requiere un argumento.\n",optopt}
+				if(optopt=='P'){
+					fprintf(stderr, "OPCION -%c requiere un argumento.\n",optopt}
+				else if(isprint(optopt))
+					fprintf(stderr, "Opcion desconocida");
+				else
+					fprintf(stderr,"Caracter desconocido");
+				return 1;
+			default:
+				abort();
+			 }
+	}
+	 /* TODO: start datagen here as a child process. */
+	
+	int status;
+	pid_t pid;
+	pid= fork();
+	if(pid==0)
+	{
+		execlp("./datagen","./datagen", NULL);
+	}
+	if (pid==-1)
+	{
+		fprintf(stderr,"No se creo el proceso hijo\n");
+		exit(0);
+	}
 
-    /* TODO: parse arguments with getopt */
-
-    /* TODO: start datagen here as a child process. */
+   
 
     /* TODO: implement code for your experiments using data provided by datagen and your
      * serial and parallel versions of binsearch.
@@ -54,6 +124,7 @@ int main(int argc, char** argv) {
     double time_elapsed = ((double) (cend - cbegin) / CLOCKS_PER_SEC) * 1000;
 
     printf("Time elapsed '%lf' [ms].\n", time_elapsed);
+	
 
     exit(0);
 }

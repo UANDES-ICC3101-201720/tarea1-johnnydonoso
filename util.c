@@ -22,7 +22,6 @@ double mean(double* vec, size_t size) {
  */
 double stdev(double* vec, size_t size) {
     double mn = mean(vec, size);
-
     double sd = 0.0;
     for (double* pv = vec; pv < vec + size; pv++) {
         sd += pow(*pv - mn, 2);

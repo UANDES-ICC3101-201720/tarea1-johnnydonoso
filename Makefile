@@ -1,5 +1,5 @@
-CC=gcc
-CFLAGS=-Wall
+CC=gcc 
+CFLAGS=-Wall -lm 
 
 all: binsearch datagen
 
