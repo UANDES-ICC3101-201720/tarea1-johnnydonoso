@@ -1,0 +1,12 @@
+INTENGRANTES:
+-Johnny Donoso A.
+
+-Descripción del Algoritmo paralelo:
+	Esto fue lo que no pude hacer de la tarea, intenté implementar uno muy parecido al serial , pero no dió resultado, es por esto que el programa sólo recibe paramétros , pero no hace nada más.
+
+-Análisis de resutado:
+	Cómo no pude solucionar el problema por falta de tiempo, no pude hacer esta aprte.
+-Conclusiones:
+	Lo mismo de el punto anterior.
+-Problemas encontrados y limitaciones: 
+	Me cuesta ver esto de procesos y formas de threads, conceptualmente sé lo que son, pero me cuesta implementarlos al momento de programar, tendré que ponerle más enfásis a este último punto, ya que en la actividad 1 me pasó algo parecido, tengo problemas para ver y escribir código sobre el tema de creación de threads y la utilización de estos mismos. LO de los sockets lo entendí mejor, pero la utilización de threads para el algoritmo paralelo no lo pude sacar.
