@@ -17,9 +17,10 @@
 
 int largo;
 int key;
-bool encontrado= false;
 
-bool serial_binsearch(unsigned int buffer[], int first, int largo, int key) {	//serial binsearch
+
+bool serial_binsearch(unsigned int buffer[], int first, int largo, int key) {
+	bool encontrado= false;	//serial binsearch
 	int first1= first;
 	int last= largo-1;
 	while (first1<=last && encontrado==false){
@@ -34,6 +35,7 @@ bool serial_binsearch(unsigned int buffer[], int first, int largo, int key) {	//
 }
 
 void parallel_binsearch(unsigned int buffer[],int first, int largo, int key) {
+	bool encontrado= false;
 	int last = largo-1;
 	while(first<=last && !encontrado){
 		int middle=(first+last)/2;
@@ -42,6 +44,7 @@ void parallel_binsearch(unsigned int buffer[],int first, int largo, int key) {
 		else if(key>middle){
 			first= middle-1;}
 		else{encontrado= true;} }
+	return encontrado;
 }
 
 int main(int argc, char** argv) {
@@ -137,14 +140,14 @@ int main(int argc, char** argv) {
 		exit(-1);}
 	
 	//generando datagen	
-	long unsigned int readvalues=0;
-	size_t numvalues = largo;
-	size_t readbytes=0;
-	UINT *readbuf = malloc(sizeof(UINT)*numvalues);
-	while(readbytes<numvalues)
+	long unsigned int leidos=0;
+	size_t valores = largo;
+	size_t rb=0;
+	UINT *readbuf = malloc(sizeof(UINT)*valores);
+	while(rb<valores)
 	{
-		readbytes= read(fd, readbuf+readvalues,sizeof(UINT)*1000);
-		readvalues= (readvalues + readbytes)/4;
+		rb= read(fd, readbuf+leidos,sizeof(UINT)*1000);
+		leidos= (leidos + rb)/4;
 	}
 	
 	if(write(fd, DATAGEN_END_CMD,sizeof(DATAGEN_END_CMD))==-1)
